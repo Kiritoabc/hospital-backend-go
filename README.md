@@ -16,10 +16,10 @@
   - [ ] Chart(用于echarts表格数据的查询)
   - [ ] updateAvatar
 - [ ] RoomController
-  - [ ] list
-  - [ ] delete
-  - [ ] add
-  - [ ] update
+  - [x] list
+  - [x] delete
+  - [x] add
+  - [x] update
 - [ ] DoctorController
   - [ ] list
   - [ ] add

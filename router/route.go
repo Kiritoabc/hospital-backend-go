@@ -20,5 +20,6 @@ func CollectRoute(r *gin.Engine) *gin.Engine {
 	userRoutes := r.Group("/user")
 	userRoutes.POST("/register", controller.Register)
 	userRoutes.POST("/login", controller.Login)
+	userRoutes.GET("/info", middleware.AuthMiddleware(), controller.GetUserInfo)
 	return r
 }

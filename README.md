@@ -12,7 +12,7 @@
 - [ ] UserController
   - [x] login
   - [x] register
-  - [ ] Info
+  - [x] Info
   - [ ] Chart(用于echarts表格数据的查询)
   - [ ] updateAvatar
 - [ ] RoomController

@@ -6,10 +6,6 @@ import (
 	"hospital-backend-go/model"
 )
 
-func Register(registerUser dto.UserRegisterDto) {
-
-}
-
 // IsPhoneExists 检查电话是否已经注册过了
 func IsPhoneExists(db *gorm.DB, phone string) bool {
 	var doctor model.Doctor

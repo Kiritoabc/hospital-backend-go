@@ -86,3 +86,15 @@ func Login(ctx *gin.Context) {
 	}, "登录成功")
 	return
 }
+
+// GetUserInfo 获取用户信息的接口
+func GetUserInfo(ctx *gin.Context) {
+	doctor, ok := ctx.Get("doctorInfo")
+	if !ok {
+		response.Fail(ctx, "请重新登录", gin.H{})
+		return
+	}
+	response.Success(ctx, gin.H{
+		"doctorVo": doctor,
+	}, "获取信息成功过")
+}

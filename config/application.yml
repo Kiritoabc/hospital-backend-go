@@ -9,3 +9,5 @@ datasource:
   password: 123456
   charset: utf8mb4
   loc: Asia/Shanghai
+start_time: "2023-03-11"
+machine_id: "1"

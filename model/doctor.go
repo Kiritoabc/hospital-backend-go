@@ -1,5 +1,7 @@
 package model
 
+var Avatar = "avatar: \"https://n.sinaimg.cn/sinakd10109/410/w868h1142/20200824/3045-iyaiihm5428976.jpg\""
+
 type Doctor struct {
 	Id        int32   `gorm:"column:id;type:INT;AUTO_INCREMENT;NOT NULL" json:"id"`
 	Name      string  `gorm:"column:name;type:VARCHAR(255);NOT NULL" json:"name"`

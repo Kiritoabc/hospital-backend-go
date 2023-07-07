@@ -6,8 +6,16 @@ import (
 	"time"
 )
 
-const timeFormat = "2006-01-02 15:04:05"
+const timeFormat = "2006-01-02"
 const timezone = "Asia/Shanghai"
+
+var timeTemplates = []string{
+	"2006-01-02 15:04:05", //常规类型
+	"2006/01/02 15:04:05",
+	"2006-01-02",
+	"2006/01/02",
+	"15:04:05",
+}
 
 type Time time.Time
 
@@ -50,4 +58,15 @@ func (t *Time) Scan(v interface{}) error {
 		return nil
 	}
 	return fmt.Errorf("can not convert %v to timestamp", v)
+}
+
+// TimeStringToGoTime 时间转换
+func TimeStringToGoTime(tm string) Time {
+	for i := range timeTemplates {
+		t, err := time.ParseInLocation(timeTemplates[i], tm, time.Local)
+		if nil == err && !t.IsZero() {
+			return Time(t)
+		}
+	}
+	return Time(time.Time{})
 }

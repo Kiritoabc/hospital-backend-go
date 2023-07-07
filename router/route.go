@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
+	"hospital-backend-go/controller"
 	"net/http"
 )
 
@@ -12,6 +13,10 @@ func CollectRoute(r *gin.Engine) *gin.Engine {
 	r.GET("/", func(context *gin.Context) {
 		context.String(http.StatusOK, "Hello Gin")
 	})
+
+	// User的路由
+	userRoutes := r.Group("/user")
+	userRoutes.POST("/register", controller.Register)
 
 	return r
 }

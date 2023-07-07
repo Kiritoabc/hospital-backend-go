@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 	"hospital-backend-go/database"
 	"hospital-backend-go/router"
+	"hospital-backend-go/util"
 	"log"
 	"os"
 )
@@ -12,6 +14,11 @@ import (
 func main() {
 	// 加载配置文件
 	InitConfig()
+	// 初始化雪花算法
+	if err := util.Init(viper.GetString("start_time"), viper.GetInt64("machine_id")); err != nil {
+		fmt.Printf("init snowflake failed, err:%v\n", err)
+		return
+	}
 	// 初始化DB
 	err := database.InitDB()
 	if err != nil {

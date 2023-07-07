@@ -6,6 +6,7 @@ import (
 	"gorm.io/driver/mysql"
 	_ "gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/schema"
 	"net/url"
 )
 
@@ -30,7 +31,11 @@ func InitDB() error {
 		charset,
 		url.QueryEscape(loc))
 	fmt.Printf(args)
-	db, err := gorm.Open(mysql.Open(args), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open(args), &gorm.Config{
+		NamingStrategy: schema.NamingStrategy{
+			SingularTable: true, // 使用单数表名
+		},
+	})
 	if err != nil {
 		panic("fail to connect database, err: " + err.Error())
 	}

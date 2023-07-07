@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 	"hospital-backend-go/database"
 	"hospital-backend-go/dto"
 	"hospital-backend-go/model"
@@ -50,5 +51,38 @@ func Register(ctx *gin.Context) {
 		return
 	}
 	response.Success(ctx, nil, "注册成功")
+	return
+}
+
+// Login 登录接口
+func Login(ctx *gin.Context) {
+	DB := database.GetDB()
+	var loginUser = dto.UserLoginDto{}
+	err := ctx.ShouldBindBodyWith(&loginUser, binding.JSON)
+	// 绑定数据出问题
+	if err != nil {
+		response.Response(ctx, http.StatusUnprocessableEntity, 422, nil, err.Error())
+		return
+	}
+	// 用户不存在
+	if !service.IsPhoneExists(DB, loginUser.Phone) {
+		response.Response(ctx, http.StatusUnprocessableEntity, 422, nil, "用户不存在")
+		return
+	}
+	ok, err := service.AuthUser(DB, loginUser)
+	if !ok || err != nil {
+		response.Response(ctx, 400, 400, nil, "密码错误")
+		return
+	}
+	var token string
+	token, err = util.GenerateTokenUsingHs256(loginUser.Phone)
+	if err != nil {
+		response.Response(ctx, 400, 400, nil, err.Error())
+		return
+	}
+
+	response.Success(ctx, gin.H{
+		"token": token,
+	}, "登录成功")
 	return
 }

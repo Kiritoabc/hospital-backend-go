@@ -10,7 +10,7 @@
 **接口完成度**
 
 - [ ] UserController
-  - [ ] login
+  - [x] login
   - [x] register
   - [ ] Info
   - [ ] Chart(用于echarts表格数据的查询)
@@ -34,6 +34,6 @@
 
 
 
-**权限认证完成度**
+**权限认证完成度（基于jwt的实现）**
 
-- [ ] 权限认证
+- [x] 权限认证

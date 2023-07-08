@@ -3,13 +3,17 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"github.com/spf13/viper"
 	"hospital-backend-go/database"
 	"hospital-backend-go/dto"
 	"hospital-backend-go/model"
 	"hospital-backend-go/response"
 	"hospital-backend-go/service"
 	"hospital-backend-go/util"
+	"log"
 	"net/http"
+	"strconv"
+	"time"
 )
 
 // Register 注册的接口
@@ -97,4 +101,34 @@ func GetUserInfo(ctx *gin.Context) {
 	response.Success(ctx, gin.H{
 		"doctorVo": doctor,
 	}, "获取信息成功过")
+}
+
+// UpdateAvatar 更新头像
+func UpdateAvatar(ctx *gin.Context) {
+	doctorInfo, ok := ctx.Get("doctorInfo")
+	if !ok {
+		response.Fail(ctx, "请重新登录", gin.H{})
+		return
+	}
+	doctor, ok := doctorInfo.(model.Doctor)
+	form, _ := ctx.MultipartForm()
+	file := form.File["file"][0]
+	//var filePathMinio string
+	log.Printf("upload file path: %s\n", file.Filename)
+	objectName := time.Now().Format("20060102") + "/" + strconv.Itoa(int(doctor.Id)) + "/" + file.Filename
+	err := util.UploadToMinio(objectName, file, "application/octet-stream")
+	if err != nil {
+		response.Fail(ctx, err.Error(), nil)
+		return
+	}
+	filePathMinio := "http://" + viper.GetString("minio.endpoint") + "/" + viper.GetString("minio.bucketName") + "/" + objectName
+	doctor.Avatar = filePathMinio
+	doctorService := service.DoctorService{}
+	err = doctorService.UpdateDoctor(&doctor)
+	if err != nil {
+		response.Fail(ctx, err.Error(), gin.H{})
+		return
+	}
+	response.Success(ctx, gin.H{}, "上传成功")
+	return
 }

@@ -11,3 +11,10 @@ datasource:
   loc: Asia/Shanghai
 start_time: "2023-03-11"
 machine_id: "1"
+# MinIo的配置
+minio:
+  endpoint: localhost:9001           # minio 的url
+  accessKey: minio                              # userName
+  secretKey: minio@123456                       # password
+  bucketName: demo
+

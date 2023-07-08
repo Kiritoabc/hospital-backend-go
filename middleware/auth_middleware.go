@@ -18,7 +18,7 @@ func AuthMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		// 获取 authorization header
 		tokenString := ctx.GetHeader("Authorization")
-
+		//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJQaG9uZSI6IjE3NzU1NjQzNzc2IiwiaXNzIjoi54m16aOO5pWj5q2l55qE6ZuyIiwic3ViIjoiVXNlciIsImF1ZCI6WyJob3NwaXRhbCIsIndlYiJdLCJleHAiOjE2ODg4Mjc0MjEsIm5iZiI6MTY4ODgyMzgyMiwiaWF0IjoxNjg4ODIzODIxLCJqdGkiOiJNQUtLdUZ5VEFiIn0.Cy1ri-WsdkWyX5U96XlbuYSDtzEcbtxTIXT8KoDtEYc
 		fmt.Print("请求token", tokenString)
 
 		//validate token formate

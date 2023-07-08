@@ -15,22 +15,22 @@
   - [x] Info
   - [ ] Chart(用于echarts表格数据的查询)
   - [ ] updateAvatar
-- [ ] RoomController
+- [x] RoomController
   - [x] list
   - [x] delete
   - [x] add
   - [x] update
-- [ ] DoctorController
-  - [ ] list
-  - [ ] add
-  - [ ] delete
-  - [ ] update
-- [ ] DepartController
-  - [ ] list
-  - [ ] delete
-  - [ ] add
-  - [ ] update
-  - [ ] getDepartId
+- [x] DoctorController
+  - [x] list
+  - [x] add
+  - [x] delete
+  - [x] update
+- [x] DepartController
+  - [x] list
+  - [x] delete
+  - [x] add
+  - [x] update
+  - [x] getDepartId
 
 
 

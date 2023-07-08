@@ -26,18 +26,26 @@ func CollectRoute(r *gin.Engine) *gin.Engine {
 	userRoutes.POST("/login", controller.Login)
 	userRoutes.GET("/info", middleware.AuthMiddleware(), controller.GetUserInfo)
 
-	//roomRoutes := r.Group("/room", middleware.AuthMiddleware())
-	roomRoutes := r.Group("/room")
+	roomRoutes := r.Group("/room", middleware.AuthMiddleware())
+	//roomRoutes := r.Group("/room")
 	roomRoutes.GET("/list", Controller.Room.RoomList)
 	roomRoutes.POST("/delete", Controller.Room.DeleteById)
 	roomRoutes.POST("/add", Controller.Room.AddRoom)
 	roomRoutes.POST("/update", Controller.Room.Update)
 
-	//doctorRoutes := r.Group("/doctor", middleware.AuthMiddleware())
-	doctorRoutes := r.Group("/doctor")
+	doctorRoutes := r.Group("/doctor", middleware.AuthMiddleware())
+	//doctorRoutes := r.Group("/doctor")
 	doctorRoutes.GET("/list", Controller.Doctor.DoctorList)
 	doctorRoutes.POST("/delete", Controller.Doctor.DeleteById)
 	doctorRoutes.POST("/add", Controller.Doctor.AddDoctor)
 	doctorRoutes.POST("/update", Controller.Doctor.Update)
+
+	departRoutes := r.Group("/depart", middleware.AuthMiddleware())
+	//departRoutes := r.Group("/depart")
+	departRoutes.GET("/departId", Controller.Depart.GetAllIds)
+	departRoutes.GET("/list", Controller.Depart.DepartList)
+	departRoutes.POST("/delete", Controller.Depart.DeleteById)
+	departRoutes.POST("/add", Controller.Depart.AddDepart)
+	departRoutes.POST("/update", Controller.Depart.Update)
 	return r
 }

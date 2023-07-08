@@ -20,7 +20,7 @@ func (s *DoctorService) GetDoctorListCount() (count int, err error) {
 }
 
 func (s *DoctorService) GetDoctorList(name string, pageNum int, pageSize int,
-	id int, idNum int, phone string, fee string, departId int, role int, rooms *[]model.Room) error {
+	id int, idNum int, phone string, fee string, departId int, role int, rooms *[]model.Doctor) error {
 	db := database.GetDB()
 	tx := db.Model(&model.Doctor{})
 	if name != "0" {
@@ -38,7 +38,7 @@ func (s *DoctorService) GetDoctorList(name string, pageNum int, pageSize int,
 	if phone != "0" {
 		tx = tx.Where("phone = ?", phone)
 	}
-	if role != 0 {
+	if role != -1 {
 		tx = tx.Where("role = ?", role)
 	}
 	if fee != "0" {
@@ -61,7 +61,7 @@ func (s *DoctorService) DeleteById(id int) error {
 	return nil
 }
 
-func (c *DoctorService) AddRoom(doctor *model.Doctor) error {
+func (c *DoctorService) AddDoctor(doctor *model.Doctor) error {
 	db := database.GetDB()
 	if err := db.Model(&doctor).Create(doctor).Error; err != nil {
 		return err
@@ -69,7 +69,7 @@ func (c *DoctorService) AddRoom(doctor *model.Doctor) error {
 	return nil
 }
 
-func (c *DoctorService) UpdateRoom(doctor *model.Doctor) error {
+func (c *DoctorService) UpdateDoctor(doctor *model.Doctor) error {
 	db := database.GetDB()
 	if err := db.Model(&doctor).Where("id = ?", doctor.Id).Save(doctor).Error; err != nil {
 		return err
